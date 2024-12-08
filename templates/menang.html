@@ -1,48 +1,109 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Anda Menang!</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #11998e, #38ef7d);
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom right, #56ab2f, #a8e063);
             color: white;
             text-align: center;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
+
         h1 {
-            font-size: 3em;
+            font-size: 3.5em;
+            font-weight: bold;
             margin-bottom: 20px;
-            text-shadow: 2px 2px #087f5b;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+            text-transform: uppercase;
         }
+
         p {
             font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .icon {
-            font-size: 5em;
-            margin-bottom: 20px;
-        }
-        a {
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.2);
             padding: 10px 20px;
-            font-size: 1.2em;
-            background-color: #fff;
-            color: #11998e;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        a:hover {
-            background-color: #38ef7d;
+
+        .icon {
+            font-size: 6em;
+            margin-bottom: 20px;
+            animation: bounce 1.5s infinite;
+        }
+
+        a {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            background: linear-gradient(to right, #38ef7d, #11998e);
             color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="icon">🏆</div> 
-    <h1>Boom! Anda Menang!</h1>
+    <div class="icon">🎉</div>
+    <h1>Anda Menang!</h1>
     <p>Selamat, Anda berhasil menebak angka rahasia!</p>
     <a href="/">Main Lagi</a>
+    <footer>
+        Terima kasih telah bermain! 🎮
+    </footer>
 </body>
+
 </html>

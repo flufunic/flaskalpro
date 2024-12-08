@@ -1,63 +1,109 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Tebak Angka</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #675fff, #7b8ffe);
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom right, #8a2387, #e94057, #f27121);
             color: #ffffff;
             text-align: center;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
+
         h1 {
-            font-size: 2.5em;
-            color: #ffffff;
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
+
         p {
             font-size: 1.2em;
             margin: 10px 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
         }
+
         form {
-            margin: 20px 0;
+            margin: 30px 0;
         }
+
         input[type="number"] {
-            padding: 10px;
+            padding: 15px;
             font-size: 1.2em;
             margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 150px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 200px;
+            outline: none;
         }
+
         button {
-            padding: 10px 20px;
+            padding: 15px 30px;
             font-size: 1.2em;
-            background-color: #ff7e5f;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
         button:hover {
-            background-color: #feb47b;
+            background: linear-gradient(to right, #feb47b, #ff7e5f);
+            transform: scale(1.05);
         }
+
         .pesan {
             margin-top: 20px;
-            font-size: 1.2em;
-            color: #740703; 
+            font-size: 1.3em;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
         }
     </style>
 </head>
+
 <body>
-    <h1>Permainan Tebak Angka</h1>
+    <h1>Permainan Tebak Angka 🎯</h1>
     <p>Anda memiliki <strong>{{ kesempatan }}</strong> kesempatan untuk menebak angka rahasia.</p>
     <form action="/tebak" method="POST">
         <input type="number" name="tebakan" placeholder="Masukkan angka" required>
-        <button type="submit">Tebak</button>
+        <button type="submit">Tebak!</button>
     </form>
     {% if pesan %}
-        <div class="pesan">{{ pesan }}</div>
+    <div class="pesan">{{ pesan }}</div>
     {% endif %}
+    <footer>
+        Dibuat dengan 🤍 untuk permainan seru.
+    </footer>
 </body>
+
 </html>
