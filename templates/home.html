@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tebak Angka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #675fff, #7b8ffe);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #ffffff;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 1.2em;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 150px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #feb47b;
+        }
+        .pesan {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #740703; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Permainan Tebak Angka</h1>
+    <p>Anda memiliki <strong>{{ kesempatan }}</strong> kesempatan untuk menebak angka rahasia.</p>
+    <form action="/tebak" method="POST">
+        <input type="number" name="tebakan" placeholder="Masukkan angka" required>
+        <button type="submit">Tebak</button>
+    </form>
+    {% if pesan %}
+        <div class="pesan">{{ pesan }}</div>
+    {% endif %}
+</body>
+</html>
