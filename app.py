@@ -1,56 +1,30 @@
-from flask import Flask, request, render_template, redirect, url_for
-from datetime import datetime
+from flask import Flask, render_template, request, jsonify
+import pandas as pd
 
 app = Flask(__name__)
 
-# Fungsi untuk menghitung angka rahasia
-def hitung_angka_rahasia():
-    hari_ini = datetime.now()
-    return hari_ini.day + 5 
-
-# Variabel global
-angka_rahasia = hitung_angka_rahasia()
-kesempatan = 5
+EXCEL_FILE = 'assets/data.xlsx'
 
 @app.route('/')
-def home():
-    global angka_rahasia, kesempatan
-    angka_rahasia = hitung_angka_rahasia()  
-    kesempatan = 5  
-    print(f"Angka rahasia adalah: {angka_rahasia}")  
-    return render_template('home.html', kesempatan=kesempatan, pesan=None)
+def index():
+    return render_template('index.html')
 
-@app.route('/tebak', methods=['POST'])
-def tebak():
-    global angka_rahasia, kesempatan
-
-    # Ambil input tebakan
-    tebakan = int(request.form.get('tebakan'))  
-    kesempatan -= 1  
-
-    # Cek apakah tebakan benar
-    if tebakan == angka_rahasia:
-        print("Boom! Anda menang!")
-        return render_template('menang.html', kesempatan=kesempatan, pesan="Boom! Anda menang!")
-    # Cek jika tebakan terlalu kecil
-    elif tebakan < angka_rahasia:
-        print("Terlalu kecil.")
-        if kesempatan == 0:
-            return redirect(url_for('game_over'))
-        else:
-            return render_template('home.html', kesempatan=kesempatan, pesan="Terlalu kecil.")
-    # Cek jika tebakan terlalu besar
-    else:
-        print("Terlalu besar.")
-        if kesempatan == 0:
-            return redirect(url_for('game_over'))
-        else:
-            return render_template('home.html', kesempatan=kesempatan, pesan="Terlalu besar.")
-
-@app.route('/game-over')
-def game_over():
-    print(f"Kesempatan habis! Angka rahasia adalah {angka_rahasia}.")  # Debugging
-    return render_template('game_over.html', pesan=f"Kesempatan habis! Angka rahasia adalah {angka_rahasia}.")
+@app.route('/search', methods=['POST'])
+def search():
+    nik = request.form.get('nik').strip()
+    try:
+        df = pd.read_excel(EXCEL_FILE, dtype={'NIK': str})
+        result = df[df['NIK'].str.strip() == nik]
+        if result.empty:
+            return jsonify({'message': 'Data tidak ditemukan!'}), 404
+        data = result[[
+            "Nama", "SEMBAKO", "PKH", "PBI", "RST", "BLT ELNINO", "BLT BBM",
+            "SEMBAKO ADAPTIF", "BLT MIGOR", "YATIM PIATU", "PERMAKANAN",
+            "PENA", "BPNT-PPKM", "BST", "ATENSI"
+        ]].to_dict(orient='records')[0]
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
